@@ -5,34 +5,39 @@ from pyquery import PyQuery
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from urllib.parse import quote
+import mongo_database
 
-browser = webdriver.Firefox()
-wait = WebDriverWait(browser, 10)
+# 无界面模式
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
+
+browser = webdriver.Chrome(chrome_options=chrome_options)
+wait = WebDriverWait(browser, 5)
 KEYWORD = 'IPAD'
 
 def index_page(page):
-    '''
+    """
         抓取索引页
         ：:param page: 页码
-    '''
+    """
     print('正在爬取第 %s 页' % page)
     try:
         url = 'https://s.taobao.com/search?q=' + quote(KEYWORD)
         browser.get(url)
         if page > 1:
-            input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '#mainsrp-pager div.form > input')))
-            submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#mainsrp-pager div.form > span.btn.J_Submit')))
+            input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#mainsrp-pager div.form > input")))
+            submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#mainsrp-pager div.form > span.btn.J_Submit")))
             input.clear()
             input.send_keys(page)
             submit.click()
-        wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, '#mainsrp-pager li.item.active > span'), str(page)))
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.m-itemlist .items .item')))
+        wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#mainsrp-pager li.item.active > span"), str(page)))
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".m-itemlist .items .item")))
         get_products()
     except TimeoutException as e:
-        print("超时了",e)
+        print("超时了", e)
         index_page(page)
 def get_products():
-    '''提取商品数据'''
+    """提取商品数据"""
     html = browser.page_source
     doc = PyQuery(html)
     items = doc('#mainsrp-itemlist .items .item').items()
@@ -47,12 +52,12 @@ def get_products():
             'location': item.find('.location').text()
         }
         print(product)
-        # save_to_mongo()
-
+        mongo_database.save_to_mongo()
 if __name__ == '__main__':
     try:
-        index_page(1)
+        for page in range(100):
+            index_page(page + 1)
     except Exception as e:
-        print("出错了",e)
+        print("出错了", e)
     finally:
         browser.close()
