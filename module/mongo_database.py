@@ -15,7 +15,13 @@ def save_to_mongo(product):
     :return:
     """
     try:
-        collection.insert(product)
+        condition = {'productId': product['productId']}
+        temp = collection.find_one(condition)
+        if temp:
+            product['_id'] = temp['_id']
+            collection.update_one(condition, {'$set': product})
+        else:
+            collection.insert(product)
         print("保存数据到mongo数据库成功")
     except Exception as e:
         print("保存数据到mongo数据库失败,失败原因：", e)
