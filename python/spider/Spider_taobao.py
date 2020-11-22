@@ -5,7 +5,7 @@ from pyquery import PyQuery
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from urllib.parse import quote
-import mongo_database
+import module.mongo_database as md
 import time
 
 # 无界面模式
@@ -450,7 +450,7 @@ def get_products():
             'location': item.find('.location').text()
         }
         print(product)
-        mongo_database.save_to_mongo(product)
+        md.save_to_mongo(product)
 if __name__ == '__main__':
     try:
         for page in range(48):

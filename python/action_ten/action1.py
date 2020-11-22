@@ -1,6 +1,7 @@
 import os
 import time
-import module.timeUtil as timeUtil
+import module as timeUtil
+
 
 def createFile():
     # 创建文件目录
