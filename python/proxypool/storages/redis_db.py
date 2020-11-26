@@ -24,6 +24,7 @@ class RedisClient(object):
         :param host: redis host
         :param port: redis port
         :param password: redis password
+        :param decode_responses: 加上decode_responses=True，写入的键值对中的value为str类型，不加这个参数写入的则为字节类型
         """
         self.db = redis.StrictRedis(host=host, port=port, password=password, db=db, decode_responses=True, **kwargs)
 

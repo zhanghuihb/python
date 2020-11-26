@@ -422,12 +422,6 @@ def index_page(page):
         # 用selenium切忌不要在打开网址之前就添加cookie，要不然就错 Message: invalid cookie domain
         for cookie in cookies:
             browser.add_cookie(cookie)
-        if page > 1:
-            input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#mainsrp-pager div.form > input")))
-            submit = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#mainsrp-pager div.form > span.btn.J_Submit")))
-            input.clear()
-            input.send_keys(page)
-            submit.click()
         wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#mainsrp-pager li.item.active > span"), str(page)))
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".m-itemlist .items .item")))
         get_products()
@@ -438,6 +432,7 @@ def get_products():
     """提取商品数据"""
     html = browser.page_source
     doc = PyQuery(html)
+    print(doc)
     items = doc('#mainsrp-itemlist .items .item').items()
     for item in items:
         product = {
@@ -453,9 +448,9 @@ def get_products():
         md.save_to_mongo(product)
 if __name__ == '__main__':
     try:
-        for page in range(48):
+        for page in range(100):
             print(page)
-            index_page(page + 52)
+            index_page(page)
             time.sleep(10)
     except Exception as e:
         print("出错了", e)

@@ -24,11 +24,11 @@ APP_PROD = IS_PROD = APP_ENV == PROD_MODE
 APP_TEST = IS_TEST = APP_ENV == TEST_MODE
 
 # redis host
-REDIS_HOST = env.str('REDIS_HOST', '127.0.0.1')
+REDIS_HOST = env.str('REDIS_HOST', '106.14.47.3')
 # redis port
-REDIS_PORT = env.int('REDIS_PORT', 6379)
+REDIS_PORT = env.int('REDIS_PORT', 7379)
 # redis password, if no password, set it to None
-REDIS_PASSWORD = env.str('REDIS_PASSWORD', None)
+REDIS_PASSWORD = env.str('REDIS_PASSWORD', 'mongoitdb@123')
 # redis db, if no choice, set it to 0
 REDIS_DB = env.int('REDIS_DB', 0)
 # redis connection string, like redis://[password]@host:port or rediss://[password]@host:port/0
