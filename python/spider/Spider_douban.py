@@ -2,6 +2,7 @@ import requests
 from lxml import etree
 import time
 from pyquery import PyQuery
+import re
 
 def get_html(url):
     headers = {
@@ -30,13 +31,13 @@ def parse_detail_html(html):
         "director": doc.find("#info > span:nth-child(1) > span.attrs").text(),
         "scriptwriter": doc.find("#info > span:nth-child(3) > span.attrs").text(),
         "protagonist": doc.find("#info > span.actor > span.attrs").text(),
-        "genre": doc.find("#info > span:nth-child(7)").text(),
-        "country": doc.find("#info > span:nth-child(12)").text(),
-        "language": doc.find("#info > span:nth-child(14)").text(),
-        "releaseDate": doc.find("#info > span:nth-child(17)").text(),
-        "mins": doc.find("#info > span:nth-child(20)").text(),
-        "alis": doc.find("#info > span:nth-child(20)").text(),
-        "imdb": doc.find("#info > span:nth-child(20)").text(),
+        "genre": re.findall('.*?<span class="pl">类型:</span>(.*?)<br>.*?', html),
+        "country": re.findall('.*<span class="pl">制片国家/地区:</span>(.*?)<br>.*', html),
+        "language": re.findall('.*<span class="pl">语言:</span>(.*)<br>.*?', html),
+        "releaseDate": re.findall('.*<span class="pl">上映日期:</span>(.*?)<br>.*', html),
+        "mins": re.findall('.*<span class="pl">片长:</span>(.*?)<br>.*', html),
+        "alis": re.findall('.*<span class="pl">又名:</span>(.*?)<br>.*', html),
+        "imdb": re.findall('<a href="(.*?)".*', re.findall('.*<span class="pl">IMDb链接:</span>(.*?)<br>.*', html)[0])[0],
 
     }
     print(moive)
