@@ -445,7 +445,7 @@ def get_products():
             'location': item.find('.location').text()
         }
         print(product)
-        md.save_to_mongo(product)
+        md.save_to_mongo(product, "products")
 if __name__ == '__main__':
     try:
         for page in range(100):

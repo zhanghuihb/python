@@ -5,19 +5,27 @@ from urllib import parse
 client = pymongo.MongoClient('mongodb://%s:%s@%s:%s/%s' % ('mongoit', parse.quote_plus('mongoitdb@123'), '106.14.47.3', '28017', 'admin'))
 # 指定数据库
 db = client.mongoit
-# 指定集合
-collection = db.products
 # 插入数据
-def save_to_mongo(product):
+def save_to_mongo(product, collect):
+    # 指定集合
+    collection = db[collect]
     """
     保存数据到mongo数据库
     :param result:
     :return:
     """
     try:
-        condition = {'productId': product['productId']}
-        temp = collection.find_one(condition)
-        if temp:
+        condition = None
+        temp = None
+        if "products" == collect:
+            condition = {'productId': product['productId']}
+        elif "dzdp-goods" == collect:
+            condition = {'goodsId': product['goodsId']}
+
+        if not condition is None:
+            temp = collection.find_one(condition)
+
+        if not temp is None:
             product['_id'] = temp['_id']
             collection.update_one(condition, {'$set': product})
         else:
@@ -25,3 +33,18 @@ def save_to_mongo(product):
         print("保存数据到mongo数据库成功")
     except Exception as e:
         print("保存数据到mongo数据库失败,失败原因：", e)
+
+# 保存失败记录
+def save_fail_record(record):
+    # 指定集合
+    collection = db["dzdp-fail-record"]
+    """
+    保存失败记录mongo数据库
+    :param result:
+    :return:
+    """
+    try:
+        collection.insert(record)
+        print("保存失败记录到mongo数据库成功")
+    except Exception as e:
+        print("保存失败记录到mongo数据库失败,失败原因：", e)

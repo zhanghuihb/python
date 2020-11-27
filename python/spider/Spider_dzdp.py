@@ -35,8 +35,8 @@ class SpiderDZDP():
         # 代理
         # self.chrome_options.add_argument('--proxy-server=http://%s' % str(RedisClient.random()))
 
-        # self.browser = webdriver.Chrome()
-        self.browser = webdriver.Chrome(chrome_options=self.chrome_options)
+        self.browser = webdriver.Chrome()
+        # self.browser = webdriver.Chrome(chrome_options=self.chrome_options)
         # browser = webdriver.Firefox()
         # browser = webdriver.Firefox(firefox_options=fire_options)
 
