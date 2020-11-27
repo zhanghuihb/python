@@ -121,6 +121,39 @@ class RedisClient(object):
         cursor, proxies = self.db.zscan(REDIS_KEY, cursor, count=count)
         return cursor, convert_proxy_or_proxies([i[0] for i in proxies])
 
+    def setRedis(self, name, value, timeout):
+        """
+        Set the value at key ``name`` to ``value``
+        :param name:
+        :param value:
+        :return:
+        """
+        return self.db.set(name, value, ex=timeout)
+
+    def getRedis(self, name):
+        """
+        Return the value at key ``name``, or None if the key doesn't exist
+        :param name:
+        :return:
+        """
+        return self.db.get(name)
+    def lpushRedis(self, name, value):
+        """
+        "Push ``values`` onto the head of the list ``name``"
+        :param name:
+        :param values:
+        :return:
+        """
+        return self.db.lpush(self, name, value)
+
+    def rpushRedis(self, name, value):
+        """
+        "Push ``values`` onto the tail of the list ``name``"
+        :param name:
+        :param values:
+        :return:
+        """
+        return self.db.rpush(name, value)
 
 if __name__ == '__main__':
     conn = RedisClient()

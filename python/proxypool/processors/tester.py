@@ -42,16 +42,16 @@ class Tester(object):
                 logger.debug(f'testing {proxy.string()}')
                 # if TEST_ANONYMOUS is True, make sure that
                 # the proxy has the effect of hiding the real IP
-                if TEST_ANONYMOUS:
-                    url = 'https://httpbin.org/ip'
-                    async with session.get(url, timeout=TEST_TIMEOUT) as response:
-                        resp_json = await response.json()
-                        origin_ip = resp_json['origin']
-                    async with session.get(url, proxy=f'http://{proxy.string()}', timeout=TEST_TIMEOUT) as response:
-                        resp_json = await response.json()
-                        anonymous_ip = resp_json['origin']
-                    assert origin_ip != anonymous_ip
-                    assert proxy.host == anonymous_ip
+                # if TEST_ANONYMOUS:
+                #     url = 'https://httpbin.org/ip'
+                #     async with session.get(url, timeout=TEST_TIMEOUT) as response:
+                #         resp_json = await response.json()
+                #         origin_ip = resp_json['origin']
+                #     async with session.get(url, proxy=f'http://{proxy.string()}', timeout=TEST_TIMEOUT) as response:
+                #         resp_json = await response.json()
+                #         anonymous_ip = resp_json['origin']
+                #     assert origin_ip != anonymous_ip
+                #     assert proxy.host == anonymous_ip
                 async with session.get(TEST_URL, proxy=f'http://{proxy.string()}', timeout=TEST_TIMEOUT,
                                        allow_redirects=False) as response:
                     if response.status in TEST_VALID_STATUS:
@@ -60,7 +60,8 @@ class Tester(object):
                     else:
                         self.redis.decrease(proxy)
                         logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
-            except EXCEPTIONS:
+            except EXCEPTIONS as e:
+                logger.debug(e)
                 self.redis.decrease(proxy)
                 logger.debug(f'proxy {proxy.string()} is invalid, decrease score')
     
