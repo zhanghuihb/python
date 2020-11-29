@@ -21,6 +21,8 @@ def save_to_mongo(product, collect):
             condition = {'productId': product['productId']}
         elif "dzdp-goods" == collect:
             condition = {'goodsId': product['goodsId']}
+        elif "dzdp-shop" == collect:
+            condition = {'shopId': product['shopId']}
 
         if not condition is None:
             temp = collection.find_one(condition)

@@ -1,4 +1,4 @@
-from attr import attrs, attr
+from attr import attr, attrs
 
 
 @attrs
