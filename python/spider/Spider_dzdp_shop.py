@@ -18,30 +18,39 @@ from proxypool.storages.redis_db import RedisClient
 class SpiderDZDP():
 
     def __init__(self):
-        self.entry_headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4298.4 Safari/537.36',
-                    'Host': 'www.dianping.com',
-                    'Accept-Encoding': 'gzip, deflate',
-                    'Connection': 'keep-alive',
-                    'Referer': 'http://www.dianping.com/',
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                    }
+        self.entry_headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0',
+            'Host': 'www.dianping.com',
+            'Accept-Encoding': 'gzip, deflate',
+            'Connection': 'keep-alive',
+            'Referer': 'http://www.dianping.com/',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        }
+        self.css_headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0',
+            'Content-Type': 'text/css'
+        }
+        self.font_headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:83.0) Gecko/20100101 Firefox/83.0',
+            'Content-Type': 'application/font-woff'
+        }
 
         # 无界面模式
-        self.chrome_options = webdriver.ChromeOptions()
+        # self.chrome_options = webdriver.ChromeOptions()
         # self.chrome_options.add_argument('--headless')
-        # fire_options = webdriver.FirefoxOptions()
-        # fire_options.add_argument('--headless')
+        fire_options = webdriver.FirefoxOptions()
+        fire_options.add_argument('--headless')
 
         # 代理
         # self.chrome_options.add_argument('--proxy-server=http://%s' % str(RedisClient.random()))
 
-        self.browser = webdriver.Chrome()
+        # self.browser = webdriver.Chrome()
         # self.browser = webdriver.Chrome(chrome_options=self.chrome_options)
-        # browser = webdriver.Firefox()
-        # browser = webdriver.Firefox(firefox_options=fire_options)
+        # self.browser = webdriver.Firefox()
+        self.browser = webdriver.Firefox(firefox_options=fire_options)
 
 
-        self.wait = WebDriverWait(self.browser, 20)
+        self.wait = WebDriverWait(self.browser, 10)
 
         self.cookies = [
 {
@@ -341,9 +350,6 @@ class SpiderDZDP():
                          '重', '串',
                          '回', '晚', '微', '周', '值', '费', '性', '桌', '拍', '跟', '块', '调', '糕']
 
-        # 店铺名称提取正则表达式
-        self.shop_name_re = '.*<h1 class="shop-name">(.*)<a class="qr-contrainer".*</h1>'
-
     def index_page(self, page):
         """
         抓取页面
@@ -360,145 +366,91 @@ class SpiderDZDP():
                 self.browser.add_cookie(cookie)
             self.wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".page .cur"), str(page)))
             self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#shop-all-list ul li")))
-            self.get_shop_redirect_url()
+            # 获取字体
+            get_dict_response = self.get_dictionary(self.browser.page_source)
+            if get_dict_response is True:
+                doc = PyQuery(self.browser.page_source)
+                items = doc("#shop-all-list ul li").items()
+                for item in items:
+                    time.sleep(1)
+                    # 当前店铺ID
+                    self.current_shopId = item.find(".txt .tit a").attr("data-shopid")
+                    # 保存当前店铺信息
+                    shopInfo = {
+                        "shopId": self.current_shopId,
+                        "shopName": item.find(".txt .tit a").attr("title"),
+                        "starWrapper": item.find(".comment .nebula_star").text(),
+                    }
+                    md.save_to_mongo(shopInfo, "dzdp-shop")
+            else:
+                print("获取字体失败")
+                # 更换代理后重新获取
+                self.index_page(page)
         except Exception as e:
             print("超时了", e)
-            # self.index_page(page)
-    def get_shop_redirect_url(self):
-        """
-        获取当前页面跳转详情页集合
-        :return:
-        """
-        html = self.browser.page_source
-        doc = PyQuery(html)
-        items = doc("#shop-all-list ul li").items()
-        for item in items:
-            redirect_url = item.find(".txt .tit a").attr("href")
-            # self.chrome_options.add_argument('--proxy-server=http://%s' % str(RedisClient().random()))
-            # self.browser = webdriver.Chrome(chrome_options=self.chrome_options)
-            self.browser.get(redirect_url)
-            for cookie in self.cookies:
-                self.browser.add_cookie(cookie)
+            self.index_page(page)
 
-            # 获取字体库
-            self.get_dictionary(redirect_url)
-            # 获取店铺信息
-            self.get_shop_info()
-            # 获取评论信息
-            self.get_comment_info()
-            time.sleep(10)
-    def get_shop_info(self):
-        html = self.browser.page_source
-        doc = PyQuery(html)
-        shopInfo = {
-            "shopName": self.fetch_info("spider_dzdp_address", re.findall(self.shop_name_re, html)), #doc.find("#basic-info .shop-name").text().replace("\n", ""),
-            # "starWrapper": doc.find("#basic-info .star-wrapper .mid-score").text().replace("\n", ""),
-            # "reviewCount": doc.find("#reviewCount").text().replace("\n", ""),
-            # "avgPriceTitle": doc.find("#avgPriceTitle").text().replace("\n", ""),
-            # "address": doc.find("#address").text().replace("\n", "")
-        }
-        # 评分
-        # "commentScoreTasete": doc.find("#comment_score ")
-        print(shopInfo)
-        return
+    def get_dictionary(self, html):
+        # 如果当前页字体已经获取，不在重复获取
+        woff_sign = RedisClient().getRedis("spider_dzdp_woff_shop")
+        if woff_sign == 1:
+            return
 
-    def get_comment_info(self):
-        html = self.browser.page_source
-        doc = PyQuery(html)
-
-        return
-
-    def get_dictionary(self, url):
-        # self.chrome_options.add_argument('--proxy-server=http://%s' % str(RedisClient().random()))
-        # self.browser = webdriver.Chrome(chrome_options=self.chrome_options)
-        self.browser.get(url)
-        for cookie in self.cookies:
-            self.browser.add_cookie(cookie)
-        html = self.browser.page_source
+        print("获取加密字体start...")
+        time.sleep(1)
         # 拿到含有字体的css_url
-        pattern = re.compile('.*href="(//s3plus.*.css)"> <link.*', re.S)
+        pattern = re.compile('<html><head>.*href="(//s3plus.*?.css)">.*?</head>', re.S)
         css_url = re.findall(pattern, html)
         # 拿到字体的url
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4298.4 Safari/537.36'
-        }
         if len(css_url) == 0:
             print("没有获取到字体链接")
-            return
-        woff_html = requests.get('http:' + css_url[0], headers=headers)
-        woff_url = ['http:' + url for url in re.findall(",url\(\"(.*?)\"\);}", woff_html.text)]
-        # 拿到字体的名字
-        woff_names = re.findall('font-family: "PingFangSC-Regular-(.*?)";', woff_html.text)
-        # 将字体名字和url一一对应起来
-        woff_name_url = {}
-        for i in range(len(woff_names)):
-            if woff_names[i] != 'reviewTag':  # 这样处理的原因是本例中用不到reviewTag这个字体文件，并且它是重复的，所以去掉它。
-                woff_name_url[woff_names[i]] = woff_url[i]
-        print(woff_name_url)
-        # 字体key列表放入缓存
-        for key in woff_name_url.keys():
-            redisKey = "spider_dzdp_%s" % key
-            # 下载字体
-            response = requests.get(woff_name_url[key], headers=headers)
-            with open('%s.woff' % key, 'wb') as f:
-                f.write(response.content)
-                f.close()
-            # 获取字体健列表
-            font = TTFont('%s.woff' % key)
-            font_keys = font.getGlyphOrder()
-            # uni替换成\u
-            font_keys_replace = []
-            for num in range(2, len(font_keys)):
-                font_keys_replace.append(font_keys[num])
-            # 放入redis
-            RedisClient().setRedis(redisKey, ','.join(font_keys[2:]), 600)
-            # 删除字体文件
-            os.remove('%s.woff' % key)
-            time.sleep(1)
+            return False
+        time.sleep(1)
+        woff_html_response = requests.get('http:' + css_url[0], headers=self.css_headers)
+        if woff_html_response.status_code == 200:
+            woff_url = ['http:' + url for url in re.findall(",url\(\"(.*?)\"\);}", woff_html_response.text)]
+            # 拿到字体的名字
+            woff_names = re.findall('font-family: "PingFangSC-Regular-(.*?)";', woff_html_response.text)
+            # 将字体名字和url一一对应起来
+            woff_name_url = {}
+            for i in range(len(woff_names)):
+                if woff_names[i] != 'reviewTag':  # 这样处理的原因是本例中用不到reviewTag这个字体文件，并且它是重复的，所以去掉它。
+                    woff_name_url[woff_names[i]] = woff_url[i]
+            # 字体key列表放入缓存
+            for key in woff_name_url.keys():
+                redisKey = "spider_dzdp_%s" % key
+                # 下载字体
+                response = requests.get(woff_name_url[key], headers=self.font_headers)
+                with open('%s.woff' % key, 'wb') as f:
+                    f.write(response.content)
+                    f.close()
+                # 获取字体健列表
+                font = TTFont('%s.woff' % key)
+                font_keys = font.getGlyphOrder()
+                # uni替换成\u
+                font_keys_replace = []
+                for num in range(2, len(font_keys)):
+                    font_keys_replace.append(font_keys[num])
+                # 放入redis
+                RedisClient().setRedis(redisKey, ','.join(font_keys[2:]), 60 * 5)
+                # 删除字体文件
+                os.remove('%s.woff' % key)
+                time.sleep(1)
 
-    def fetch_info(self, woff_name_key, re_str):
-        print(re_str)
-        if re_str is None:
-            print("待替换文本不存在")
-            return re_str
-        # 从缓存获取字典
-        dictStr = RedisClient().getRedis(woff_name_key)
-        # 转换成列表
-        if dictStr is None:
-            print("字体列表不存在")
-            return re_str
-        dictList = dictStr.split(",")
-        # 不同字体名称有不同的标签，需要区分
-        # 1.店铺名称
-        if "spider_dzdp_address" == woff_name_key:
-            # 找出需要替换的加密字体
-            pattern = re.compile('.*?<e class="address">(.*?)</e>.*?', re.S)
-            need_decode = re.findall(pattern, re_str[0])
-            print(need_decode)
-            if len(need_decode) == 0:
-                print("没有可匹配的加密字体")
-                return
-            # 店铺名称加密标签替换成空字符串
-            re_str = re_str[0].replace('<e class="address">', '').replace('</e>', '')
-            # 利用字体库，替换加密字体
-            for need in need_decode:
-                # 格式跟数据库格式不一致，替换成一致
-                need = 'uni'.join(need[2:])
-                # 获取加密字体库的下标位置
-                index_position = dictList.index(need)
-                print(need,index_position)
-                # 替换解密字体
-                re_str = re_str.replace(need, self.basefont_char[index_position])
+            # 放入获取字体标记，下载再次访问时，不再重复请求
+            RedisClient().setRedis("spider_dzdp_woff_shop", 1, 60 * 60)
+            return True
+        else:
+            print("获取字体失败 status_code=%s" % woff_html_response.status_code)
 
-            return re_str
+        return False
 
-        return re_str
 if __name__ == '__main__':
     spider = SpiderDZDP()
     try:
-        # for page in range(50):
-        #     index_page(page)
-        #     time.sleep(10)
+        # for page in range(1,51):
+        #     spider.index_page(page)
+        #     time.sleep(3)
         spider.index_page(1)
     except Exception as e:
         print("出错了", e)

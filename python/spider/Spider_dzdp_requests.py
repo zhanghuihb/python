@@ -6,6 +6,7 @@ from fontTools.ttLib import TTFont
 import os
 import json
 import module.mongo_database as md
+from selenium import webdriver
 
 from proxypool.storages.redis_db import RedisClient
 
@@ -148,6 +149,8 @@ class SpiderDZDP():
         # 营业时间正则
         self.business_hour_re = '.*?<span class="info-name">营业时间：</span>.*?<span class="item">(.*?)</span>'
 
+        self.browser = webdriver.Chrome()
+
     def index_page(self, page):
         """
         抓取页面
@@ -183,20 +186,18 @@ class SpiderDZDP():
         :return:
         """
         time.sleep(2)
-        single_shop_response = requests.get(redirect_url, headers=self.entry_headers)
-        if single_shop_response.status_code == 200:
-            # 获取字体库
-            if self.get_dictionary(single_shop_response.text):
-                # 获取店铺信息
-                if self.get_shop_info(single_shop_response.text):
-                    return
-        else:
-            if retry_sign:
-                # 请求不到，可以更换更换代理IP，重试;更换3次代理后，仍然失败，记录url，放入爬取失败列表
-                print("请求不到，可以更换更换代理IP，重试")
-                self.parse_shop_info(redirect_url, False)
+        # 获取字体库
+        if self.get_dictionary(self.browser.page_source) is True:
+            # 获取店铺信息
+            if self.get_shop_info(redirect_url):
+                return
+            else:
+                if retry_sign:
+                    # 请求不到，可以更换更换代理IP，重试;更换3次代理后，仍然失败，记录url，放入爬取失败列表
+                    print("请求不到，可以更换更换代理IP，重试")
+                    self.parse_shop_info(redirect_url, False)
 
-        if not retry_sign:
+        if retry_sign is False:
             # 访问失败，保存失败记录到数据库
             record = {
                 "type": 3,  # 失败类型 type: 1-保存商品信息失败 2-访问评论页面失败 3-爬取店铺信息失败
@@ -207,25 +208,32 @@ class SpiderDZDP():
             }
             md.save_fail_record(record)
 
-    def get_shop_info(self, html):
-        # print(html)
-        shopInfo = {
-            "shopId": self.current_shopId,
-            "shopName": self.fetch_info(["spider_dzdp_address"], re.findall(self.shop_name_re, html)),
-            "starWrapper": self.fetch_info(["spider_dzdp_address"], re.findall(self.star_wrapper_re, html)),
-            "reviewCount": self.fetch_info(["spider_dzdp_num"], re.findall(self.review_count_re, html)),
-            "avgPriceTitle": self.fetch_info(["spider_dzdp_num"], re.findall(self.avg_price_re, html)),
-            "tasteScore": self.fetch_info(["spider_dzdp_num"], e.findall(self.pattern(self.taste_score_re, re.S), html)),
-            "technicianScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.technician_score_re, html)),
-            "environmentScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.environment_score_re, html)),
-            "serviceScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.service_score_re, html)),
-            "address": self.fetch_info(["spider_dzdp_address", "spider_dzdp_num"], re.findall(self.address_re, html)),
-            "mobile": self.fetch_info(["spider_dzdp_num"], re.findall(self.mobile_re, html)),
-            "businessHour": self.fetch_info(["spider_dzdp_shopdesc", "spider_dzdp_hours"], re.findall(self.business_hour_re, html))
-        }
-        print(shopInfo)
-        # 保存店铺到数据库
-        md.save_to_mongo(shopInfo, "dzdp-shop")
+    def get_shop_info(self, redirect_url):
+        time.sleep(2)
+        single_shop_response = requests.get(redirect_url, headers=self.entry_headers)
+        if single_shop_response.status_code == 200:
+            html = single_shop_response.text
+            shopInfo = {
+                "shopId": self.current_shopId,
+                "shopName": self.fetch_info(["spider_dzdp_address"], re.findall(self.shop_name_re, html)),
+                "starWrapper": self.fetch_info(["spider_dzdp_address"], re.findall(self.star_wrapper_re, html)),
+                "reviewCount": self.fetch_info(["spider_dzdp_num"], re.findall(self.review_count_re, html)),
+                "avgPriceTitle": self.fetch_info(["spider_dzdp_num"], re.findall(self.avg_price_re, html)),
+                "tasteScore": self.fetch_info(["spider_dzdp_num"], e.findall(self.pattern(self.taste_score_re, re.S), html)),
+                "technicianScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.technician_score_re, html)),
+                "environmentScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.environment_score_re, html)),
+                "serviceScore": self.fetch_info(["spider_dzdp_num"], re.findall(self.service_score_re, html)),
+                "address": self.fetch_info(["spider_dzdp_address", "spider_dzdp_num"], re.findall(self.address_re, html)),
+                "mobile": self.fetch_info(["spider_dzdp_num"], re.findall(self.mobile_re, html)),
+                "businessHour": self.fetch_info(["spider_dzdp_shopdesc", "spider_dzdp_hours"], re.findall(self.business_hour_re, html))
+            }
+            print(shopInfo)
+            # 保存店铺到数据库
+            md.save_to_mongo(shopInfo, "dzdp-shop")
+            return True
+
+        return False
+
 
     def get_goods_info(self):
         """
@@ -303,6 +311,12 @@ class SpiderDZDP():
         return
 
     def get_dictionary(self, html):
+        # 如果当前页字体已经获取，不在重复获取
+        woff_sign = RedisClient().getRedis("spider_dzdp_woff_%s" % self.current_shopId)
+        if woff_sign is True:
+            print("当前页字体已经获取，不在重复获取")
+            return
+
         time.sleep(1)
         # 拿到含有字体的css_url
         pattern = re.compile('.*href="(//s3plus.*.css)"> <link.*', re.S)
@@ -338,12 +352,14 @@ class SpiderDZDP():
                 for num in range(2, len(font_keys)):
                     font_keys_replace.append(font_keys[num])
                 # 放入redis
-                RedisClient().setRedis(redisKey, ','.join(font_keys[2:]), 60 * 60 * 24)
+                RedisClient().setRedis(redisKey, ','.join(font_keys[2:]), 60 * 5)
                 # 删除字体文件
                 os.remove('%s.woff' % key)
                 time.sleep(1)
 
-                return True
+            # 放入获取字体标记，下载再次访问时，不再重复请求
+            RedisClient().setRedis("spider_dzdp_woff_%s" % self.current_shopId, True, 60 * 5)
+            return True
         else:
             print("获取字体失败 status_code=%s" % woff_html_response.status_code)
 
@@ -439,4 +455,4 @@ if __name__ == '__main__':
         print("出错了", e)
     finally:
         print("关闭浏览器")
-        # spider.browser.close()
+        spider.browser.close()
