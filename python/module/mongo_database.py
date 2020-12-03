@@ -5,6 +5,22 @@ from urllib import parse
 client = pymongo.MongoClient('mongodb://%s:%s@%s:%s/%s' % ('mongoit', parse.quote_plus('mongoitdb@123'), '106.14.47.3', '28017', 'admin'))
 # 指定数据库
 db = client.mongoit
+
+#总记录数
+def query_count(collect, query):
+    # 指定集合
+    collection = db[collect]
+    return collection.find(query).count()
+
+# 分页查询
+def query_by_page(collect, query, pageNum, pageSize):
+    # 指定集合
+    collection = db[collect]
+
+    skip = (pageNum - 1) * pageSize
+
+    return collection.find(query).skip(skip).limit(pageSize)
+
 # 插入数据
 def save_to_mongo(product, collect):
     # 指定集合

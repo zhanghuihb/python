@@ -1,16 +1,16 @@
-2020-11-26 12:49:03.053 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (18824), thread 'MainThread' (17492):
+2020-12-02 15:45:56.168 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (6212), thread 'MainThread' (17464):
 Traceback (most recent call last):
 
   File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
     main()
-    └ <function main at 0x000001B6130994C0>
+    └ <function main at 0x00000254835B94C0>
 
   File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
     globals = debugger.run(setup['file'], None, None, is_module)
               │        │   │                          └ False
-              │        │   └ {'port': 51563, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
-              │        └ <function PyDB.run at 0x000001B61309A4C0>
-              └ <__main__.PyDB object at 0x000001B61301CE50>
+              │        │   └ {'port': 59707, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x00000254835BA4C0>
+              └ <__main__.PyDB object at 0x000002548353CE50>
 
   File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
     return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
@@ -20,15 +20,15 @@ Traceback (most recent call last):
            │    │     │          │               └ None
            │    │     │          └ ''
            │    │     └ False
-           │    └ <function PyDB._exec at 0x000001B61309A550>
-           └ <__main__.PyDB object at 0x000001B61301CE50>
+           │    └ <function PyDB._exec at 0x00000254835BA550>
+           └ <__main__.PyDB object at 0x000002548353CE50>
 
   File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
     pydev_imports.execfile(file, globals, locals)  # execute the script
     │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
     │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
     │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
-    │             └ <function execfile at 0x000001B6122F7AF0>
+    │             └ <function execfile at 0x0000025482817AF0>
     └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
 
   File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
@@ -40,33 +40,342 @@ Traceback (most recent call last):
 
   File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
     getter.run()
-    │      └ <function Getter.run at 0x000001B6137BE8B0>
-    └ <__main__.Getter object at 0x000001B613191E50>
+    │      └ <function Getter.run at 0x0000025483CDD310>
+    └ <__main__.Getter object at 0x00000254836B2F40>
 
 > File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
     for proxy in crawler.crawl():
-        │        │       └ <function BaseCrawler.crawl at 0x000001B6137BC8B0>
-        │        └ <public.jiangxianli.JiangXianLiCrawler object at 0x000001B6138FD1F0>
-        └ Proxy(host='49.89.85.199', port=9999)
+                 │       └ <function BaseCrawler.crawl at 0x0000025483CDAEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000025483DED790>
 
-  File "I:\工作\python\python\proxypool\crawlers\base.py", line 29, in crawl
-    html = self.fetch(url)
-           │    │     └ 'https://ip.jiangxianli.com/?page=%s'
-           │    └ <function BaseCrawler.fetch at 0x000001B6137BC820>
-           └ <public.jiangxianli.JiangXianLiCrawler object at 0x000001B6138FD1F0>
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x0000025483E198B0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000025483DED790>
 
-  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 49, in wrapped_f
-    return Retrying(*dargs, **dkw).call(f, *args, **kw)
-           │         │        │         │   │       └ {}
-           │         │        │         │   └ (<public.jiangxianli.JiangXianLiCrawler object at 0x000001B6138FD1F0>, 'https://ip.jiangxianli.com/?page=%s')
-           │         │        │         └ <function BaseCrawler.fetch at 0x000001B6137BC790>
-           │         │        └ {'stop_max_attempt_number': 3, 'retry_on_result': <function BaseCrawler.<lambda> at 0x000001B61356E550>, 'wait_fixed': 2000}
-           │         └ ()
-           └ <class 'retrying.Retrying'>
+  File "I:\工作\python\python\proxypool\crawlers\public\zhimahttp.py", line 22, in parse
+    doc = pq(html["ret_data"])
+          │  └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+          └ <class 'pyquery.pyquery.PyQuery'>
 
-  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 214, in call
-    raise RetryError(attempt)
-          │          └ Attempts: 3, Value: None
-          └ <class 'retrying.RetryError'>
+TypeError: string indices must be integers
+2020-12-02 15:47:10.836 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (10752), thread 'MainThread' (15032):
+Traceback (most recent call last):
 
-retrying.RetryError: RetryError[Attempts: 3, Value: None]
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x0000019ACBE254C0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 60303, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x0000019ACBE3A4C0>
+              └ <__main__.PyDB object at 0x0000019ACBDBBE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x0000019ACBE3A550>
+           └ <__main__.PyDB object at 0x0000019ACBDBBE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x0000019ACB097AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x0000019ACC55F310>
+    └ <__main__.Getter object at 0x0000019ACBF32F40>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+                 │       └ <function BaseCrawler.crawl at 0x0000019ACC55DEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000019ACC565F40>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x0000019ACC69B820>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000019ACC565F40>
+
+  File "I:\工作\python\python\proxypool\crawlers\public\zhimahttp.py", line 23, in parse
+    doc = pq(json.load(html)["ret_data"])
+          │  │    │    └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+          │  │    └ <function load at 0x0000019ACB12BE50>
+          │  └ <module 'json' from 'D:\\Program Files\\Python\\Python39\\lib\\json\\__init__.py'>
+          └ <class 'pyquery.pyquery.PyQuery'>
+
+  File "D:\Program Files\Python\Python39\lib\json\__init__.py", line 293, in load
+    return loads(fp.read(),
+           │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+           └ <function loads at 0x0000019ACB12BEE0>
+
+AttributeError: 'str' object has no attribute 'read'
+2020-12-02 15:48:30.570 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (19712), thread 'MainThread' (1816):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x0000016622C094C0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 60855, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x0000016622C0A4C0>
+              └ <__main__.PyDB object at 0x0000016622B8CE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x0000016622C0A550>
+           └ <__main__.PyDB object at 0x0000016622B8CE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x0000016621E67AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x000001662332F310>
+    └ <__main__.Getter object at 0x0000016622D02F40>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+                 │       └ <function BaseCrawler.crawl at 0x000001662332EEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000016623335F40>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x000001662346C820>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000016623335F40>
+
+  File "I:\工作\python\python\proxypool\crawlers\public\zhimahttp.py", line 23, in parse
+    doc = pq(json.loads(html)["ret_data"])
+          │  │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+          │  │    └ <function loads at 0x0000016621EFBEE0>
+          │  └ <module 'json' from 'D:\\Program Files\\Python\\Python39\\lib\\json\\__init__.py'>
+          └ <class 'pyquery.pyquery.PyQuery'>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\pyquery\pyquery.py", line 267, in __init__
+    raise TypeError(context)
+                    └ {'code': 0, 'html': '<table>\n    <tr class="th">\n        <th>IP地址</th>\n        <th>端口号</th>\n        <th>匿名程度</th>\n      ...
+
+TypeError: {'code': 0, 'html': '<table>\n    <tr class="th">\n        <th>IP地址</th>\n        <th>端口号</th>\n        <th>匿名程度</th>\n        <th>支持协议</th>\n        <th>地区</th>\n        <th>稳定时间</th>\n        <th>更新时间</th>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>121.231.216.167</td>\n        <td>4276</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>江苏省常州市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 15:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>123.179.43.26</td>\n        <td>4261</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>内蒙古包头市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 14:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>119.5.180.23</td>\n        <td>4258</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>四川省乐山市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 13:00:02</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>114.99.9.28</td>\n        <td>4225</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>安徽省铜陵市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 12:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>175.23.211.114</td>\n        <td>4278</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>吉林省白山市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 11:00:02</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>183.164.255.197</td>\n        <td>4252</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>安徽省淮北市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 10:00:01</td>\n    </tr>\n    </table>', 'total': 1703, 'current': 1, 'last': 284}
+2020-12-02 15:49:13.024 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (2072), thread 'MainThread' (15276):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002DF8F1794C0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 61051, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002DF8F17A4C0>
+              └ <__main__.PyDB object at 0x000002DF8F0FCE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002DF8F17A550>
+           └ <__main__.PyDB object at 0x000002DF8F0FCE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002DF8E3D7AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x000002DF8F89F310>
+    └ <__main__.Getter object at 0x000002DF8F272F40>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+                 │       └ <function BaseCrawler.crawl at 0x000002DF8F89DEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x000002DF8F9AF790>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x000002DF8F9DB820>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x000002DF8F9AF790>
+
+  File "I:\工作\python\python\proxypool\crawlers\public\zhimahttp.py", line 23, in parse
+    doc = pq(json.loads(html)["ret_data"])
+          │  │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+          │  │    └ <function loads at 0x000002DF8E46BEE0>
+          │  └ <module 'json' from 'D:\\Program Files\\Python\\Python39\\lib\\json\\__init__.py'>
+          └ <class 'pyquery.pyquery.PyQuery'>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\pyquery\pyquery.py", line 267, in __init__
+    raise TypeError(context)
+                    └ {'code': 0, 'html': '<table>\n    <tr class="th">\n        <th>IP地址</th>\n        <th>端口号</th>\n        <th>匿名程度</th>\n      ...
+
+TypeError: {'code': 0, 'html': '<table>\n    <tr class="th">\n        <th>IP地址</th>\n        <th>端口号</th>\n        <th>匿名程度</th>\n        <th>支持协议</th>\n        <th>地区</th>\n        <th>稳定时间</th>\n        <th>更新时间</th>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>121.231.216.167</td>\n        <td>4276</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>江苏省常州市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 15:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>123.179.43.26</td>\n        <td>4261</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>内蒙古包头市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 14:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>119.5.180.23</td>\n        <td>4258</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>四川省乐山市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 13:00:02</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>114.99.9.28</td>\n        <td>4225</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>安徽省铜陵市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 12:00:01</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>175.23.211.114</td>\n        <td>4278</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>吉林省白山市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 11:00:02</td>\n    </tr>\n        <tr class="tr">\n        <td><span class="slogan">FREE</span>183.164.255.197</td>\n        <td>4252</td>\n        <td>超高</td>\n        <td>HTTP</td>\n        <td>安徽省淮北市</td>\n        <td>5-1440分钟</td>\n        <td>2020/12/02 10:00:01</td>\n    </tr>\n    </table>', 'total': 1703, 'current': 1, 'last': 284}
+2020-12-02 15:50:45.750 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (10436), thread 'MainThread' (19412):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002060BDA94C0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 61794, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002060BDAA4C0>
+              └ <__main__.PyDB object at 0x000002060BD2BE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002060BDAA550>
+           └ <__main__.PyDB object at 0x000002060BD2BE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002060B007AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x000002060C4CF310>
+    └ <__main__.Getter object at 0x000002060BEA2F40>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+                 │       └ <function BaseCrawler.crawl at 0x000002060C4CCEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x000002060C4D5F40>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x000002060C60B820>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x000002060C4D5F40>
+
+TypeError: 'NoneType' object is not iterable
+2020-12-02 15:52:31.702 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (15296), thread 'MainThread' (18708):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x0000014E8F5294C0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 62476, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x0000014E8F52A4C0>
+              └ <__main__.PyDB object at 0x0000014E8F4ACE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x0000014E8F52A550>
+           └ <__main__.PyDB object at 0x0000014E8F4ACE50>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x0000014E8E787AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x0000014E8FC4F310>
+    └ <__main__.Getter object at 0x0000014E8F622F40>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+                 │       └ <function BaseCrawler.crawl at 0x0000014E8FC4DEE0>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000014E8FD5F790>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 52, in crawl
+    for proxy in self.parse(html):
+                 │    │     └ '{"ret":0,"code":"1","msg":"ok","ret_data":{"code":0,"html":"<table>\\n    <tr class=\\"th\\">\\n        <th>IP地址<\\/th>\\n  ...
+                 │    └ <function ZhiMaHttpCrawler.parse at 0x0000014E8FD8B820>
+                 └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000014E8FD5F790>
+
+TypeError: 'NoneType' object is not iterable

@@ -11,7 +11,7 @@ class JiangXianLiCrawler(BaseCrawler):
     """
     JiangXianLi crawler, https://ip.jiangxianli.com/
     """
-    urls = [BASE_URL.format(page) for page in range(1, MAX_PAGE + 1)]
+    post_urls = [BASE_URL.format(page) for page in range(1, MAX_PAGE + 1)]
     
     def parse(self, html):
         """
