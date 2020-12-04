@@ -379,3 +379,378 @@ Traceback (most recent call last):
                  └ <public.zhimahttp.ZhiMaHttpCrawler object at 0x0000014E8FD5F790>
 
 TypeError: 'NoneType' object is not iterable
+2020-12-03 18:56:57.794 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (4324), thread 'MainThread' (11996):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002709FABA550>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 56055, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002709FABB550>
+              └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002709FABB5E0>
+           └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002709ED17AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x00000270A031D700>
+    └ <__main__.Getter object at 0x000002709FBB2F10>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+        │        │       └ <function BaseCrawler.crawl at 0x00000270A01DBDC0>
+        │        └ <public.daili66.Daili66Crawler object at 0x00000270A01E6F40>
+        └ Proxy(host='118.97.235.234', port=8080)
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 48, in crawl
+    if not self.post_urls is None:
+           └ <public.daili66.Daili66Crawler object at 0x00000270A01E6F40>
+
+AttributeError: 'Daili66Crawler' object has no attribute 'post_urls'
+2020-12-03 18:57:01.145 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (4324), thread 'MainThread' (11996):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002709FABA550>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 56055, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002709FABB550>
+              └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002709FABB5E0>
+           └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002709ED17AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x00000270A031D700>
+    └ <__main__.Getter object at 0x000002709FBB2F10>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+        │        │       └ <function BaseCrawler.crawl at 0x00000270A01DBDC0>
+        │        └ <public.ip3366.IP3366Crawler object at 0x00000270A01E63D0>
+        └ Proxy(host='60.187.116.239', port=9000)
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 48, in crawl
+    if not self.post_urls is None:
+           └ <public.ip3366.IP3366Crawler object at 0x00000270A01E63D0>
+
+AttributeError: 'IP3366Crawler' object has no attribute 'post_urls'
+2020-12-03 18:57:05.188 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (4324), thread 'MainThread' (11996):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002709FABA550>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 56055, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002709FABB550>
+              └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002709FABB5E0>
+           └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002709ED17AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x00000270A031D700>
+    └ <__main__.Getter object at 0x000002709FBB2F10>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+        │        │       └ <function BaseCrawler.crawl at 0x00000270A01DBDC0>
+        │        └ <public.jiangxianli.JiangXianLiCrawler object at 0x00000270A01E6FA0>
+        └ Proxy(host='60.187.116.239', port=9000)
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 51, in crawl
+    html = self.fetch_post(post_url[0], post_url[1])
+           │    │          │            └ 'https://ip.jiangxianli.com/?page=1&country=中国'
+           │    │          └ 'https://ip.jiangxianli.com/?page=1&country=中国'
+           │    └ <function BaseCrawler.fetch_post at 0x00000270A01DBD30>
+           └ <public.jiangxianli.JiangXianLiCrawler object at 0x00000270A01E6FA0>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 49, in wrapped_f
+    return Retrying(*dargs, **dkw).call(f, *args, **kw)
+           │         │        │         │   │       └ {}
+           │         │        │         │   └ (<public.jiangxianli.JiangXianLiCrawler object at 0x00000270A01E6FA0>, 'h', 't')
+           │         │        │         └ <function BaseCrawler.fetch_post at 0x00000270A01DBCA0>
+           │         │        └ {'stop_max_attempt_number': 3, 'retry_on_result': <function BaseCrawler.<lambda> at 0x00000270A01DBA60>, 'wait_fixed': 2000}
+           │         └ ()
+           └ <class 'retrying.Retrying'>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 212, in call
+    raise attempt.get()
+          │       └ <function Attempt.get at 0x000002709FE083A0>
+          └ Attempts: 3, Error:
+              File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 200, in call
+                attempt = ...
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 247, in get
+    six.reraise(self.value[0], self.value[1], self.value[2])
+    │   │       │    │         │    │         │    └ (<class 'requests.exceptions.MissingSchema'>, MissingSchema("Invalid URL 'h': No schema supplied. Perhaps you meant http://h?...
+    │   │       │    │         │    │         └ Attempts: 3, Error:
+    │   │       │    │         │    │             File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 200, in call
+    │   │       │    │         │    │               attempt = ...
+    │   │       │    │         │    └ (<class 'requests.exceptions.MissingSchema'>, MissingSchema("Invalid URL 'h': No schema supplied. Perhaps you meant http://h?...
+    │   │       │    │         └ Attempts: 3, Error:
+    │   │       │    │             File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 200, in call
+    │   │       │    │               attempt = ...
+    │   │       │    └ (<class 'requests.exceptions.MissingSchema'>, MissingSchema("Invalid URL 'h': No schema supplied. Perhaps you meant http://h?...
+    │   │       └ Attempts: 3, Error:
+    │   │           File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 200, in call
+    │   │             attempt = ...
+    │   └ <function reraise at 0x000002709FE06820>
+    └ <module 'six' from 'D:\\Program Files\\Python\\Python39\\lib\\site-packages\\six.py'>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\six.py", line 703, in reraise
+    raise value
+          └ None
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\retrying.py", line 200, in call
+    attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
+              │       │   │       │        └ 3
+              │       │   │       └ {}
+              │       │   └ (<public.jiangxianli.JiangXianLiCrawler object at 0x00000270A01E6FA0>, 'h', 't')
+              │       └ <function BaseCrawler.fetch_post at 0x00000270A01DBCA0>
+              └ <class 'retrying.Attempt'>
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 27, in fetch_post
+    response = requests.post(url,data=param, **kwargs)
+               │        │    │        │        └ {'timeout': 10, 'verify': False}
+               │        │    │        └ 't'
+               │        │    └ 'h'
+               │        └ <function post at 0x00000270A01DB820>
+               └ <module 'requests' from 'D:\\Program Files\\Python\\Python39\\lib\\site-packages\\requests\\__init__.py'>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\api.py", line 119, in post
+    return request('post', url, data=data, json=json, **kwargs)
+           │               │         │          │       └ {'timeout': 10, 'verify': False}
+           │               │         │          └ None
+           │               │         └ 't'
+           │               └ 'h'
+           └ <function request at 0x00000270A01BA310>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+           │       │              │           │      └ {'data': 't', 'json': None, 'timeout': 10, 'verify': False}
+           │       │              │           └ 'h'
+           │       │              └ 'post'
+           │       └ <function Session.request at 0x00000270A01DEDC0>
+           └ <requests.sessions.Session object at 0x00000270A031EFA0>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\sessions.py", line 528, in request
+    prep = self.prepare_request(req)
+           │    │               └ <Request [POST]>
+           │    └ <function Session.prepare_request at 0x00000270A01DED30>
+           └ <requests.sessions.Session object at 0x00000270A031EFA0>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\sessions.py", line 456, in prepare_request
+    p.prepare(
+    │ └ <function PreparedRequest.prepare at 0x00000270A01AEEE0>
+    └ <PreparedRequest [POST]>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\models.py", line 316, in prepare
+    self.prepare_url(url, params)
+    │    │           │    └ OrderedDict()
+    │    │           └ 'h'
+    │    └ <function PreparedRequest.prepare_url at 0x00000270A01B91F0>
+    └ <PreparedRequest [POST]>
+
+  File "D:\Program Files\Python\Python39\lib\site-packages\requests\models.py", line 390, in prepare_url
+    raise MissingSchema(error)
+          │             └ "Invalid URL 'h': No schema supplied. Perhaps you meant http://h?"
+          └ <class 'requests.exceptions.MissingSchema'>
+
+requests.exceptions.MissingSchema: Invalid URL 'h': No schema supplied. Perhaps you meant http://h?
+2020-12-03 18:57:17.198 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (4324), thread 'MainThread' (11996):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002709FABA550>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 56055, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002709FABB550>
+              └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002709FABB5E0>
+           └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002709ED17AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x00000270A031D700>
+    └ <__main__.Getter object at 0x000002709FBB2F10>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+        │        │       └ <function BaseCrawler.crawl at 0x00000270A01DBDC0>
+        │        └ <public.kuaidaili.KuaidailiCrawler object at 0x00000270A01E6F70>
+        └ Proxy(host='36.248.129.247', port='9999')
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 48, in crawl
+    if not self.post_urls is None:
+           └ <public.kuaidaili.KuaidailiCrawler object at 0x00000270A01E6F70>
+
+AttributeError: 'KuaidailiCrawler' object has no attribute 'post_urls'
+2020-12-03 18:57:17.912 | ERROR    | __main__:run:37 - An error has been caught in function 'run', process 'MainProcess' (4324), thread 'MainThread' (11996):
+Traceback (most recent call last):
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2141, in <module>
+    main()
+    └ <function main at 0x000002709FABA550>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 2132, in main
+    globals = debugger.run(setup['file'], None, None, is_module)
+              │        │   │                          └ False
+              │        │   └ {'port': 56055, 'vm_type': None, 'client': '127.0.0.1', 'server': False, 'DEBUG_RECORD_SOCKET_READS': False, 'multiproc': Tru...
+              │        └ <function PyDB.run at 0x000002709FABB550>
+              └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1441, in run
+    return self._exec(is_module, entry_point_fn, module_name, file, globals, locals)
+           │    │     │          │               │            │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+           │    │     │          │               │            └ 'I:/工作/python/python/proxypool/processors/getter.py'
+           │    │     │          │               └ None
+           │    │     │          └ ''
+           │    │     └ False
+           │    └ <function PyDB._exec at 0x000002709FABB5E0>
+           └ <__main__.PyDB object at 0x000002709FA3CEE0>
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\pydevd.py", line 1448, in _exec
+    pydev_imports.execfile(file, globals, locals)  # execute the script
+    │             │        │     │        └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+    │             │        └ 'I:/工作/python/python/proxypool/processors/getter.py'
+    │             └ <function execfile at 0x000002709ED17AF0>
+    └ <module '_pydev_bundle.pydev_imports' from 'D:\\Program Files\\JetBrains\\PyCharm 2020.2.3\\plugins\\python\\helpers\\pydev\\...
+
+  File "D:\Program Files\JetBrains\PyCharm 2020.2.3\plugins\python\helpers\pydev\_pydev_imps\_pydev_execfile.py", line 18, in execfile
+    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+                 │              │              │     └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              │              └ {'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': <_frozen_importlib_external.SourceFileLoader obj...
+                 │              └ 'I:/工作/python/python/proxypool/processors/getter.py'
+                 └ 'from loguru import logger\nfrom proxypool.storages.redis_db import RedisClient\nfrom proxypool.setting import PROXY_NUMBER_M...
+
+  File "I:/工作/python/python/proxypool/processors/getter.py", line 43, in <module>
+    getter.run()
+    │      └ <function Getter.run at 0x00000270A031D700>
+    └ <__main__.Getter object at 0x000002709FBB2F10>
+
+> File "I:/工作/python/python/proxypool/processors/getter.py", line 37, in run
+    for proxy in crawler.crawl():
+        │        │       └ <function BaseCrawler.crawl at 0x00000270A01DBDC0>
+        │        └ <public.xiladaili.XiladailiCrawler object at 0x00000270A01E6E80>
+        └ Proxy(host='221.229.252.98', port='9797')
+
+  File "I:\工作\python\python\proxypool\crawlers\base.py", line 48, in crawl
+    if not self.post_urls is None:
+           └ <public.xiladaili.XiladailiCrawler object at 0x00000270A01E6E80>
+
+AttributeError: 'XiladailiCrawler' object has no attribute 'post_urls'

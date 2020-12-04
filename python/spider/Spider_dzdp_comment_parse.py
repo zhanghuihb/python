@@ -35,10 +35,25 @@ class CommentParse():
             with open('%s\%s' % (path_prefix, filename_svg), 'r', encoding='utf-8') as f:
                 svg_text = f.read()
             sel = parsel.Selector(svg_text)
-            texts = sel.css('text')
+            # 先判断是那种加密方式
+            defs = sel.css('defs')
             lines = []
-            for text in texts:
-                lines.append([int(text.css('text::attr(y)').get()), text.css('text::text').get()])
+            if defs is None or len(defs) == 0:
+                texts = sel.css('text')
+                for text in texts:
+                    lines.append([int(text.css('text::attr(y)').get()), text.css('text::text').get()])
+            else:
+                paths = sel.css('path')
+                # 获取path_id和y轴映射字典
+                path_id_y_dict = {}
+                for path in paths:
+                    path_id_y_dict[path.css('path::attr(id)').get()] = path.css('path::attr(d)').get().split(' ')[1]
+                # 获取所有textPath
+                text_paths = sel.css('textPath')
+                for text_path in text_paths:
+                    lines.append([int(
+                        path_id_y_dict[re.findall('.*?xlink:href="#(\d+)".*?', text_path.css('textPath').get())[0]]),
+                                  text_path.css('textPath::text').get()])
             """获取所有的类名与位置"""
             # css文件路径
             filename_css = Parse.get_suffix_file(path_prefix, '.css')

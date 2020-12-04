@@ -1,10 +1,17 @@
 import pymongo
 from urllib import parse
+from bson.objectid import ObjectId
 
 # 连接mongo，获取mongo客户端
 client = pymongo.MongoClient('mongodb://%s:%s@%s:%s/%s' % ('mongoit', parse.quote_plus('mongoitdb@123'), '106.14.47.3', '28017', 'admin'))
 # 指定数据库
 db = client.mongoit
+
+def find_one(collect, query):
+    # 指定集合
+    collection = db[collect]
+
+    return collection.find_one(query)
 
 #总记录数
 def query_count(collect, query):
@@ -21,15 +28,29 @@ def query_by_page(collect, query, pageNum, pageSize):
 
     return collection.find(query).skip(skip).limit(pageSize)
 
-# 插入数据
-def save_to_mongo(product, collect):
+def save(product, collect):
+    """
+    保存集合
+    :param obj:
+    :param collect:
+    :return:
+    """
     # 指定集合
     collection = db[collect]
+    if '_id' in product:
+        return collection.update({"_id": ObjectId(product['_id'])}, {'$set': product}, upsert=True)
+    else:
+        return collection.save(product)
+
+# 插入数据
+def save_to_mongo(product, collect):
     """
     保存数据到mongo数据库
     :param result:
     :return:
     """
+    # 指定集合
+    collection = db[collect]
     try:
         condition = None
         temp = None

@@ -56,7 +56,7 @@ CYCLE_GETTER = env.int('CYCLE_GETTER', 100)
 GET_TIMEOUT = env.int('GET_TIMEOUT', 10)
 
 # definition of tester
-TEST_URL = env.str('TEST_URL', 'http://www.baidu.com')
+TEST_URL = env.str('TEST_URL', 'http://www.dianping.com/shop/G7lsGtLhJKqWDF9J/review_all')
 TEST_TIMEOUT = env.int('TEST_TIMEOUT', 10)
 TEST_BATCH = env.int('TEST_BATCH', 20)
 # only save anonymous proxy
