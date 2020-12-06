@@ -33,16 +33,14 @@ def download():
                 print(e)
                 break
             else:
-                # 控制访问频率，10秒到30秒之间访问一次
-                time.sleep(10 + int(random.random() * 11))
-                print('店铺【%s】数据下载成功' % shop["shopName"])
                 # 店铺爬取成功后，修改店铺状态：status = 1 待解析
                 shop_obj = md.find_one("dzdp-shop", {"shopId": shop["shopId"]})
                 if shop_obj:
                     shop_obj["status"] = 1
                     md.save(shop_obj, "dzdp-shop")
-        # 店铺分页查询控制访问频率，10秒到30秒之间访问一次
-        time.sleep(10 + int(random.random() * 21))
+                print('店铺【%s】数据下载成功' % shop["shopName"])
+            # 店铺分页查询控制访问频率，10秒到30秒之间访问一次
+            time.sleep(10 + int(random.random() * 21))
 
 def parse():
     """
@@ -79,6 +77,6 @@ def parse():
                     md.save(shop_obj, "dzdp-shop")
 if __name__ == '__main__':
     # 下载网页文件
-    download()
+    # download()
     # 解析网页文件
-    # parse()
+    parse()
