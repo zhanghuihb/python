@@ -13,9 +13,10 @@ def download():
     pageSize = 10
     for shopPage in range(1, 76):
         query = {"status": 0}
+        counts = md.query_count("dzdp-shop", query)
         shop_records = md.query_by_page("dzdp-shop", query, pageNum=shopPage, pageSize=pageSize)
-        if shop_records.count() <= pageSize * shopPage:
-            break;
+        if counts <= (shopPage - 1) * pageSize:
+            break
         for shop in shop_records:
             # 每个店铺爬取前30页
             try:
@@ -30,7 +31,7 @@ def download():
                     time.sleep(10 + int(random.random() * 21))
             except Exception as e:
                 print(e)
-                break;
+                break
             else:
                 # 控制访问频率，10秒到30秒之间访问一次
                 time.sleep(10 + int(random.random() * 11))
@@ -78,6 +79,6 @@ def parse():
                     md.save(shop_obj, "dzdp-shop")
 if __name__ == '__main__':
     # 下载网页文件
-    # download()
+    download()
     # 解析网页文件
-    parse()
+    # parse()
