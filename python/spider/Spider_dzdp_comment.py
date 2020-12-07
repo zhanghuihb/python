@@ -11,7 +11,7 @@ def download():
     """
     # 获取待爬取店铺列表
     pageSize = 10
-    for shopPage in range(1, 76):
+    for shopPage in range(1, 2):
         query = {"status": 0}
         counts = md.query_count("dzdp-shop", query)
         shop_records = md.query_by_page("dzdp-shop", query, pageNum=shopPage, pageSize=pageSize)
@@ -26,9 +26,6 @@ def download():
                         print('爬取店铺【%s】 第【%s】页评论成功' % (shop["shopName"], str(page)))
                     else:
                         raise Exception('爬取店铺【%s】 第【%s】页评论出错了, 停止爬取' % (shop["shopName"], str(page)))
-
-                    # 控制访问频率，10秒到30秒之间访问一次
-                    time.sleep(10 + int(random.random() * 21))
             except Exception as e:
                 print(e)
                 break
@@ -77,6 +74,6 @@ def parse():
                     md.save(shop_obj, "dzdp-shop")
 if __name__ == '__main__':
     # 下载网页文件
-    # download()
+    download()
     # 解析网页文件
-    parse()
+    # parse()

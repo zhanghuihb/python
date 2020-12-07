@@ -28,7 +28,7 @@ class CommentParse():
     def parse(shopId, page):
         try:
             Parse = CommentParse()
-            path_prefix = 'D:\data\python\dzdp\comment\%s\%s' % (shopId, page)
+            path_prefix = 'F:\data\python\dzdp\comment\%s\%s' % (shopId, page)
             # svg文件路径
             filename_svg = Parse.get_suffix_file(path_prefix, '.svg')
             """获取svg字体"""
